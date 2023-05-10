@@ -814,8 +814,9 @@ img {
 .backButton {
   background: var(--color-main-light);
   color: var(--color-main);
-  width: 4rem;
-  height: 4rem;
+  background-image:url('1.png');
+  width: 3rem;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;

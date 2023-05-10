@@ -18,11 +18,15 @@ class profile(models.Model):
     social_website=models.CharField(max_length=200,blank=True,null=True)
     social_youtube=models.CharField(max_length=200,blank=True,null=True)
     social_linkedin=models.CharField(max_length=200,blank=True,null=True) 
+    social_twitter=models.CharField(max_length=200,blank=True,null=True) 
+    social_github=models.CharField(max_length=200,blank=True,null=True)
     created=models.DateTimeField(auto_now_add=True)
     id=models.UUIDField(default=uuid.uuid4,unique=True
                         ,primary_key=True,editable=False)
     def __str__(self):
         return str(self.user.username)
+    class Meta:
+        ordering=['created']
 
 class Skill(models.Model):
     owner=models.ForeignKey(profile,on_delete=models.CASCADE,null=True,blank=True)
@@ -34,5 +38,23 @@ class Skill(models.Model):
     def __str__(self):
         return str(self.name)
     
+class Message(models.Model):
+    sender=models.ForeignKey(profile,null=True,blank=True,on_delete=models.SET_NULL)
+    recipient=models.ForeignKey(profile,null=True,on_delete=models.CASCADE,related_name='payams')
+    subject=models.CharField(max_length=200,blank=True,null=True)
+    sender_name=models.CharField(max_length=200,blank=False,null=True)
+    body=models.TextField()
+    created=models.DateTimeField(auto_now=True,null=True,blank=True)
+    email=models.EmailField(null=True,blank=True)
+    is_read=models.BooleanField(default=False,null=True,blank=True)
+    id=models.UUIDField(default=uuid.uuid4,unique=True
+                        ,primary_key=True,editable=False)
+    def __str__(self):
+        return str(self.subject)
+    
+    class Meta:
+        ordering=['is_read','-created']
+
+
 
 

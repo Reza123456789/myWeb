@@ -33,7 +33,7 @@
                             <img class="project__thumbnail" src="{{project.feuchered_image.url}}" objectfit="cover"; alt="project thumbnail" />
                             <div class="card__body">
                                 <h3 class="project__title">{{project.title}}</h3>
-                                <p><a class="project__author" href="">By {{project.owner.first_name}}</a>
+                                <p><a class="project__author" href="{% url 'user-profiles' project.owner.id %}">By {{project.owner.first_name}}</a>
                                 </p>
                                 <p class="project--rating">
                                     <span style="font-weight: bold;">{{project.Vote_ratio}}%</span> Positive
@@ -56,8 +56,7 @@
             </div>
         </div>
     </section>
-
-    
+    {% include 'pagination.html' with queryset=projects  custom_range=custom_range %}
 </main>
 
 {% endblock content %} 
